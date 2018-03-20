@@ -4,7 +4,7 @@ xhr.onreadystatechange = function() {
 		const res = JSON.parse(xhr.responseText)
 		const productsContainer = document.querySelector('#products-container')
 
-		for (product in res) {
+		for (let product of res) {
 			const productContainer = document.createElement('div')
 			productContainer.innerText = product.name
 
