@@ -13,15 +13,13 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest
-public class BrowseControllerMvcTest {
+public class CatalogMvcTest {
 
 	@Resource
 	private MockMvc mvc;
-
+	
 	@Test
 	public void shouldRetrieveProducts() throws Exception {
 		mvc.perform(get("/products")).andExpect(status().isOk());
-
 	}
-
 }

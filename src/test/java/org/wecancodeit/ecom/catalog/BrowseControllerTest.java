@@ -18,5 +18,4 @@ public class BrowseControllerTest {
 
 		assertThat(result, hasSize(greaterThan(0)));
 	}
-
 }
