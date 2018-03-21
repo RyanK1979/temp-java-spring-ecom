@@ -3,8 +3,6 @@ package org.wecancodeit.ecom.catalog;
 import static org.hamcrest.Matchers.any;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 
@@ -16,6 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.data.repository.CrudRepository;
+import org.wecancodeit.ecom.catalog.BrowseController.ProductNotFoundException;
 
 public class BrowseControllerTest {
 
@@ -34,10 +33,10 @@ public class BrowseControllerTest {
 	}
 
 	@Test
-	public void shouldGetProducts() {
+	public void shouldRetrieveProducts() {
 		when(productRepo.findAll()).thenReturn(Collections.singleton(product));
 
-		Iterable<Product> result = underTest.getProducts();
+		Iterable<Product> result = underTest.findProducts();
 
 		assertThat(result, contains(any(Product.class)));
 	}
@@ -46,15 +45,26 @@ public class BrowseControllerTest {
 	public void shouldGetProductsFromDb() {
 		when(productRepo.findAll()).thenReturn(Collections.singleton(product));
 
-		Iterable<Product> result = underTest.getProducts();
+		Iterable<Product> result = underTest.findProducts();
 
 		assertThat(result, contains(product));
 	}
 
 	@Test
-	public void shouldGetAnIndividualProduct() {
-		Product result = underTest.getProduct(42L);
+	public void shouldRetrieveAnIndividualProduct() {
+		long id = 42L;
+		when(productRepo.findOne(id)).thenReturn(product);
 
-		assertThat(result, is(not(nullValue())));
+		Product result = underTest.findProduct(id);
+
+		assertThat(result, is(product));
 	}
+
+	@Test(expected = ProductNotFoundException.class)
+	public void shouldReturnNotFoundForBadProductId() {
+		long invalidProductId = 42L;
+		underTest.findProduct(invalidProductId);
+
+	}
+
 }
