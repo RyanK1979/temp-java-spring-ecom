@@ -1,6 +1,8 @@
 package org.wecancodeit.ecom.catalog;
 
 import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertThat;
 
 import javax.annotation.Resource;
@@ -28,6 +30,28 @@ public class ProductMappingTest {
 		cartRepo.save(cart);
 
 		assertThat(cart.getProducts(), contains(shoes));
+	}
+
+	@Test
+	public void shouldAddMultipleItemsToCart() {
+		Product shoes = productRepo.save(new Product("shoes"));
+		Product backpack = productRepo.save(new Product("backpack"));
+		Cart cart = new Cart("ryans", shoes, backpack);
+		cartRepo.save(cart);
+
+		assertThat(cart.getProducts(), containsInAnyOrder(shoes, backpack));
+
+	}
+
+	@Test
+	public void shouldClearCart() {
+		Product shoes = productRepo.save(new Product("shoes"));
+		Product backpack = productRepo.save(new Product("backpack"));
+
+		Cart cart = cartRepo.save(new Cart("go", shoes, backpack));
+		cart.clearCart();
+
+		assertThat(cart.getProducts(), not(containsInAnyOrder(shoes, backpack)));
 	}
 
 }
