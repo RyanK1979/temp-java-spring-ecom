@@ -22,9 +22,9 @@ public class ProductMappingTest {
 	private CrudRepository<Cart, Long> cartRepo;
 
 	@Test
-	public void shouldAddItemToCart() {
+	public void shouldAddItemsToCart() {
 		Product shoes = productRepo.save(new Product("shoes"));
-		Cart cart = new Cart("shoes");
+		Cart cart = new Cart("willie", shoes);
 		cartRepo.save(cart);
 
 		assertThat(cart.getProducts(), contains(shoes));
