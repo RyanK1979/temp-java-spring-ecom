@@ -24,7 +24,7 @@ public class ProductMappingTest {
 	@Test
 	public void shouldAddItemToCart() {
 		Product shoes = productRepo.save(new Product("shoes"));
-		Cart cart = new Cart(shoes);
+		Cart cart = new Cart("shoes");
 		cartRepo.save(cart);
 
 		assertThat(cart.getProducts(), contains(shoes));
