@@ -19,6 +19,8 @@ public class Cart {
 	private long id;
 	private String name;
 
+	private int quantity;
+
 	@JsonIgnore
 	@ManyToMany
 	private Collection<Product> products;
@@ -39,8 +41,9 @@ public class Cart {
 	private Cart() {
 	}
 
-	public Cart(String name, Product... products) {
+	public Cart(String name, int quantity, Product... products) {
 		this.name = name;
+		this.quantity = quantity;
 		this.products = new HashSet<>(Arrays.asList(products));
 	}
 

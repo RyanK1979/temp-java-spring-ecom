@@ -14,8 +14,6 @@ public class CartItem {
 	@GeneratedValue
 	private long id;
 
-	private int quantity;
-
 	private String name;
 
 	@ManyToMany(mappedBy = "products")
@@ -37,7 +35,7 @@ public class CartItem {
 	private CartItem() {
 	}
 
-	public CartItem(String name, int quantity, Product product, Cart cart) {
+	public CartItem(String name, Product product, Cart cart) {
 		this.name = name;
 	}
 

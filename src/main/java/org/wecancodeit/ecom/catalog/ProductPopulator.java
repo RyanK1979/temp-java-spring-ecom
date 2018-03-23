@@ -14,15 +14,12 @@ public class ProductPopulator implements CommandLineRunner {
 	@Resource
 	private CartRepository cartRepo;
 
-	@Resource
-	private CategoryRepository categoryRepo;
-
 	@Override
 	public void run(String... args) throws Exception {
 
 		Product shoes = productRepo.save(new Product("shoes"));
 
-		Cart cart = new Cart("go", shoes);
+		Cart cart = new Cart("go", 2, shoes);
 		cart = cartRepo.save(cart);
 	}
 }
