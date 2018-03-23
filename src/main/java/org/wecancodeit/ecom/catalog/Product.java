@@ -3,6 +3,7 @@ package org.wecancodeit.ecom.catalog;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Product {
@@ -10,6 +11,9 @@ public class Product {
 	@Id
 	@GeneratedValue
 	private long id;
+
+	@ManyToOne
+	private Cart cart;
 
 	private String name;
 

@@ -1,19 +1,19 @@
 package org.wecancodeit.ecom.catalog;
 
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.contains;
 import static org.junit.Assert.assertThat;
 
 import javax.annotation.Resource;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.autoconfigure.json.JsonTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-@JsonTest
-public class cartTest {
+@DataJpaTest
+public class ProductMappingTest {
 
 	@Resource
 	private CrudRepository<Product, Long> productRepo;
@@ -27,7 +27,7 @@ public class cartTest {
 		Cart cart = new Cart(shoes);
 		cartRepo.save(cart);
 
-		assertThat(cart.getProducts(), is("shoes"));
+		assertThat(cart.getProducts(), contains(shoes));
 	}
 
 }

@@ -5,7 +5,7 @@ import java.util.Collection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Cart {
@@ -13,18 +13,30 @@ public class Cart {
 	@Id
 	@GeneratedValue
 	private long Id;
-	private Product product;
+	private String name;
 
-	@OneToMany(mappedBy = "cart")
+	@ManyToMany(mappedBy = "cart")
 	private Collection<Product> products;
 
 	public Cart(Product... product) {
 
 	}
 
-	public Product getProducts() {
+	public Collection<Product> getProducts() {
 
-		return product;
+		return products;
+	}
+
+	@SuppressWarnings("unused")
+	private Cart() {
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void addOrder(Product product) {
+		products.add(product);
 	}
 
 }
