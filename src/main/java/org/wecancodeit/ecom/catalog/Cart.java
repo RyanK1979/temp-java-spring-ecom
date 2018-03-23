@@ -9,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Cart {
 
@@ -17,33 +19,41 @@ public class Cart {
 	private long id;
 	private String name;
 
-	@ManyToMany(mappedBy = "cart")
+	@JsonIgnore
+	@ManyToMany
 	private Collection<Product> products;
 
-	public Cart(String name, Product... products) {
-		this.name = name;
-		this.products = new HashSet<>(Arrays.asList(products));
+	public Collection<Product> getProducts() {
+		return products;
 	}
 
 	public long getId() {
 		return id;
 	}
 
-	public Collection<Product> getProducts() {
-
-		return products;
+	public String getName() {
+		return name;
 	}
 
 	@SuppressWarnings("unused")
 	private Cart() {
 	}
 
-	public String getName() {
-		return name;
+	public Cart(String name, Product... products) {
+		this.name = name;
+		this.products = new HashSet<>(Arrays.asList(products));
 	}
 
-	public void addOrder(Product product) {
+	public void addItem(Product product) {
 		products.add(product);
+	}
+
+	public void removeItem(Product product) {
+		products.remove(product);
+	}
+
+	public void clearCart() {
+		products.removeAll(products);
 	}
 
 	@Override

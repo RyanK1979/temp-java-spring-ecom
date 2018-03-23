@@ -16,5 +16,6 @@ public class MaintenanceController {
 	@RequestMapping(path = "/products", method = RequestMethod.POST)
 	public Product createProduct(Product incoming) {
 		return productRepo.save(incoming);
+
 	}
 }

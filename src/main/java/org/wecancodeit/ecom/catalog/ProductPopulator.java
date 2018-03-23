@@ -20,5 +20,9 @@ public class ProductPopulator implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
+		Product shoes = productRepo.save(new Product("shoes"));
+
+		Cart cart = new Cart("go", shoes);
+		cart = cartRepo.save(cart);
 	}
 }
