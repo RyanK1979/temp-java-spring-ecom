@@ -20,6 +20,7 @@ public class Cart {
 	private String name;
 
 	private int quantity;
+	private double price;
 
 	@JsonIgnore
 	@ManyToMany
@@ -37,18 +38,27 @@ public class Cart {
 		return name;
 	}
 
+	public double getPrice() {
+		return price;
+	}
+
 	@SuppressWarnings("unused")
 	private Cart() {
 	}
 
-	public Cart(String name, int quantity, Product... products) {
+	public Cart(String name, int quantity, double price, Product... products) {
 		this.name = name;
 		this.quantity = quantity;
+		this.price = price;
 		this.products = new HashSet<>(Arrays.asList(products));
 	}
 
 	public void addItem(Product product) {
 		products.add(product);
+	}
+
+	public int getProductQuantity() {
+		return quantity;
 	}
 
 	public void removeItem(Product product) {
